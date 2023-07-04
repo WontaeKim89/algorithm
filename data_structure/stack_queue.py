@@ -34,18 +34,23 @@ progresses / speeds	/ return
 [95, 90, 99, 99, 80, 99]	[1, 1, 1, 1, 1, 1]	[1, 3, 2]
 """
 
-def solution(progresses, speeds):
-    update_list = []
-    publish_wait = 0
-    for num in range(100):
-        if num == 0:
-            update_list = progresses
-        temp_list = []
-        for prog, speed in zip(update_list, speeds):
-            value = prog + speed
-            if value >= 100:
-                publish_wait += 1
-            temp_list.append()
 
-    answer = []
-    return answer....진행중
+def solution(progresses, speeds):
+    result = []
+    publish_count_list = []
+    for p, s in zip(progresses, speeds):
+        temp = 100 - p
+        if temp % s != 0:
+            publish_count = int(temp / s) + 1
+        else:
+            publish_count = int(temp / s)
+        publish_count_list.append(publish_count)
+        wait_list = []
+    for cnt, value in enumerate(publish_count_list):
+        for i in publish_count_list[cnt + 1:]:
+            if value >= i:
+                wait_list.append(i)
+        result.append(len(wait_list))
+        wait_list = []
+
+
