@@ -46,11 +46,20 @@ def solution(progresses, speeds):
             publish_count = int(temp / s)
         publish_count_list.append(publish_count)
         wait_list = []
-    for cnt, value in enumerate(publish_count_list):
-        for i in publish_count_list[cnt + 1:]:
-            if value >= i:
-                wait_list.append(i)
-        result.append(len(wait_list))
-        wait_list = []
+
+    for i in range(len(publish_count_list)):
+        if len(publish_count_list)<=1:
+            result.append(len(publish_count_list))
+            return result
+        else :
+            key = publish_count_list[0]
+            value = publish_count_list[1:]
+            delete_list = [j for j in value if key>=j]
+            result.append(len(delete_list))
+            if len(delete_list)>1:
+                for d in delete_list:
+                    publish_count_list.pop(d)
+
+
 
 
